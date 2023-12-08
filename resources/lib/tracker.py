@@ -128,6 +128,8 @@ class Tracker():
                             "Current audio is different from data audio -> Overriding audio")
                         logger.debug(stored_info["audio"])
                         logger.debug(item_props["audiostreams"])
+                        #  日志item_props["audiostreams"] 详情
+                        logger.debug("item_props[audiostreams]: %s", item_props["audiostreams"])
                         stream = find_audio_stream(
                             stored_info["audio"], item_props["audiostreams"])
                         if stream is not None and self.set_audio_stream:
