@@ -146,6 +146,8 @@ class Tracker():
 
             if not self.first_update:
                 # Check for changes and store if different cause it is what the user specified
+                logger.debug("Checking audio changes:  last_audio:%s, current_audio:%s",self.audio, current_audio)
+                logger.debug("Checking subtitle changes:  last_subtitle:%s, current_subtitle:%s",self.subtitle, current_subtitle)
                 if not same_audio(self.audio, current_audio) or not same_subtitle(self.subtitle, current_subtitle):
                     logger.debug("same_audio: %s\n    %s\n    %s", same_audio(
                         self.audio, current_audio), self.audio, current_audio)
