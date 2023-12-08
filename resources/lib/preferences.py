@@ -50,6 +50,8 @@ class Preferences():
             try:
                 episodes = self._storage[show_str][str(s)].keys()
                 if len(episodes) > 0:
+                    if str(episode) not in episodes:
+                        episodes.append(str(episode))
                     for e in episodes:
                             self._storage[show_str][str(s)][e] = info
                 else:
