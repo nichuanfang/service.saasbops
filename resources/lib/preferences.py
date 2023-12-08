@@ -26,39 +26,22 @@ class Preferences():
 
         if show_str not in self._storage.keys():
             return None
-        for s in reversed(range(0, season+1)):
-            for e in reversed(range(0, episode+1)):
-                try:
-                    info = self._storage[show_str][str(s)][str(e)]
-                    return info
-                except KeyError:
-                    pass
+        try:
+            info = self._storage[show_str]
+            return info
+        except KeyError:
+            pass
 
     def set(self, show: int, season: int, episode: int, info: Any) -> None:
         # Strings to allow for storing as JSON (easier debugging than binary formats)
         show_str = str(show)
-        season_str = str(season)
         # episode_str = str(episode)
         
-        if show not in self._storage.keys():
-            self._storage[show_str] = {}
-        if season not in self._storage[show_str].keys():
-            self._storage[show_str][season_str] = {}
-            
-        for s in reversed(range(0, season+1)):
-            # 获取所有的episode
-            try:
-                episodes = self._storage[show_str][str(s)].keys()
-                if len(episodes) > 0:
-                    if str(episode) not in episodes:
-                        episodes.append(str(episode))
-                    for e in episodes:
-                            self._storage[show_str][str(s)][e] = info
-                else:
-                    self._storage[show_str][str(s)][str(episode)] = info
-            except:
-                pass
-        
+        # if show not in self._storage.keys():
+        #     self._storage[show_str] = {}
+        # if season not in self._storage[show_str].keys():
+        #     self._storage[show_str][season_str] = {}
+        self._storage[show_str] = info
         # self._storage[show_str][season_str][episode_str] = info
         if self._save:
             self._save(self._storage)
