@@ -36,6 +36,8 @@ class Preferences():
 
     def set(self, show: int, season: int, episode: int, info: Any) -> None:
         # Strings to allow for storing as JSON (easier debugging than binary formats)
+        logger.debug("Update storage:     show: %s, season:%s, episode:%s, info:%s",
+                     show, season, episode, str(info))
         show = str(show)
         season = str(season)
         episode = str(episode)
