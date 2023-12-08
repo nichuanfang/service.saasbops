@@ -44,6 +44,15 @@ class Preferences():
             self._storage[show_str] = {}
         if season not in self._storage[show_str].keys():
             self._storage[show_str][season_str] = {}
+            
+        for s in reversed(range(0, season+1)):
+            # 获取所有的episode
+            episodes = self._storage[show_str][season_str].keys()
+            for e in episodes:
+                try:
+                    self._storage[show_str][season_str][e] = info
+                except KeyError:
+                    pass
         
         self._storage[show_str][season_str][episode_str] = info
         if self._save:
