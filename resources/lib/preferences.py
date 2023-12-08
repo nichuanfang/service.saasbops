@@ -51,8 +51,8 @@ class Preferences():
                     logger.debug("Storing show: %s, season:%s, episode:%s, info:%s",
                                  show, s, e, str(info))
                     self._storage[show][str(s)][str(e)] = info
-                except KeyError:
-                    logger.debug("KeyError: %s, %s, %s", show, s, e)
+                except :
+                    logger.debug("==>Error: %s, %s, %s", show, s, e)
         # self._storage[show][season][episode] = info
         logger.debug("Stored show: %s, season:%s, episode:%s, info:%s",
                      show, season, episode, str(info))
