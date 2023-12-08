@@ -97,11 +97,6 @@ class Tracker():
 
         try:
             show_id = item_info["tvshowid"]
-            season = item_info["season"]
-            episode = item_info["episode"]
-
-            logger.debug("show: %d, season:%d, episode:%d",
-                         show_id, season, episode)
 
             item_props = get_properties()
             current_audio = self._get_audio(item_props)
@@ -116,7 +111,7 @@ class Tracker():
                 self.audio = current_audio
                 self.subtitle = current_subtitle
 
-                stored_info = self.preferences.get(show_id, season, episode)
+                stored_info = self.preferences.get(show_id)
                 logger.debug("Initial stored info: %s", stored_info)
 
                 if stored_info is not None:
@@ -164,7 +159,7 @@ class Tracker():
                         self.audio, current_audio), self.audio, current_audio)
                     logger.debug("same_subtitle: %s\n    %s\n    %s", same_subtitle(
                         self.subtitle, current_subtitle), self.subtitle, current_subtitle)
-                    self.preferences.set(show_id, season, episode, {
+                    self.preferences.set(show_id, {
                         "audio": current_audio, "subtitle": current_subtitle})
 
                     self.audio = current_audio
