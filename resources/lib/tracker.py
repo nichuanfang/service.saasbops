@@ -13,9 +13,13 @@ logger = logging.getLogger(ADDON.getAddonInfo('id'))
 
 def same_audio(audio1, audio2) -> bool:
     """Check if same audio, needed because other attributes can differ"""
+    # {'bitrate': 0, 'channels': 2, 'codec': 'aac', 'index': 1, 'isdefault': True, 'isimpaired': False, 'isoriginal': False, 'language': '', 'name': 'AAC stereo', 'samplerate': 0}, 
+    # {'bitrate': 0, 'channels': 2, 'codec': 'aac', 'index': 0, 'isdefault': False, 'isimpaired': False, 'isoriginal': False, 'language': '', 'name': 'AAC stereo', 'samplerate': 0}
     if (audio1['name'] == audio2['name'] and
         audio1['language'] == audio2['language'] and
-            audio1['isimpaired'] == audio2['isimpaired']):
+            audio1['index'] == audio2['index'] and
+                audio1['isdefault'] == audio2['isdefault'] and
+                    audio1['isimpaired'] == audio2['isimpaired']):
         return True
     return False
 
