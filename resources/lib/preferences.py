@@ -38,7 +38,7 @@ class Preferences():
         # Strings to allow for storing as JSON (easier debugging than binary formats)
         show_str = str(show)
         season_str = str(season)
-        episode_str = str(episode)
+        # episode_str = str(episode)
         
         if show not in self._storage.keys():
             self._storage[show_str] = {}
@@ -47,13 +47,13 @@ class Preferences():
             
         for s in reversed(range(0, season+1)):
             # 获取所有的episode
-            episodes = self._storage[show_str][season_str].keys()
+            episodes = self._storage[show_str][str(s)].keys()
             for e in episodes:
                 try:
-                    self._storage[show_str][season_str][e] = info
+                    self._storage[show_str][str(s)][e] = info
                 except KeyError:
                     pass
         
-        self._storage[show_str][season_str][episode_str] = info
+        # self._storage[show_str][season_str][episode_str] = info
         if self._save:
             self._save(self._storage)
