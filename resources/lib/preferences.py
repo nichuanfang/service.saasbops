@@ -41,20 +41,20 @@ class Preferences():
         show = str(show)
         season = str(season)
         episode = str(episode)
-
-        if show not in self._storage.keys():
-            self._storage[show] = {}
-        if season not in self._storage[show].keys():
-            self._storage[show][season] = {}
         
-        for s in reversed(range(0, season+1)):
-            for e in reversed(range(0, episode+1)):
-                try:
+        try:
+            if show not in self._storage.keys():
+                self._storage[show] = {}
+            if season not in self._storage[show].keys():
+                self._storage[show][season] = {}
+            
+            for s in reversed(range(0, season+1)):
+                for e in reversed(range(0, episode+1)):
                     logger.debug("Storing show: %s, season:%s, episode:%s, info:%s",
-                                 show, s, e, str(info))
+                                show, s, e, str(info))
                     self._storage[show][str(s)][str(e)] = info
-                except :
-                    logger.debug("==>Error: %s, %s, %s", show, s, e)
+        except Exception as e:
+            logger.debug("==>Error: %s, %s, %s, %s", show, season, episode, e)
         # self._storage[show][season][episode] = info
         logger.debug("Stored show: %s, season:%s, episode:%s, info:%s",
                      show, season, episode, str(info))
