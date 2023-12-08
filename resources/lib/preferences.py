@@ -36,25 +36,17 @@ class Preferences():
 
     def set(self, show: int, season: int, episode: int, info: Any) -> None:
         # Strings to allow for storing as JSON (easier debugging than binary formats)
-        logger.debug("Update storage:     show: %s, season:%s, episode:%s, info:%s",
-                     show, season, episode, str(info))
-        show = str(show)
-        season = str(season)
-        episode = str(episode)
+        show_str = str(show)
+        season_str = str(season)
         
-        try:
-            if show not in self._storage.keys():
-                self._storage[show] = {}
-            if season not in self._storage[show].keys():
-                self._storage[show][season] = {}
-            
-            for s in reversed(range(0, season+1)):
-                for e in reversed(range(0, episode+1)):
-                    logger.debug("Storing show: %s, season:%s, episode:%s, info:%s",
-                                show, s, e, str(info))
-                    self._storage[show][str(s)][str(e)] = info
-        except Exception as e:
-            logger.debug("==>Error: %s, %s, %s, %s", show, season, episode, e)
+        if show not in self._storage.keys():
+            self._storage[show_str] = {}
+        if season not in self._storage[show_str].keys():
+            self._storage[show_str][season_str] = {}
+        
+        for e in reversed(range(0, episode+1)):
+            # 将当前季的所有集数都统一字幕和音轨
+            self._storage[show_str][season_str][str(e)] = info
         # self._storage[show][season][episode] = info
         logger.debug("Stored show: %s, season:%s, episode:%s, info:%s",
                      show, season, episode, str(info))
