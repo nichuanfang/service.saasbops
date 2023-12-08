@@ -35,8 +35,9 @@ def same_subtitle(subtitle1, subtitle2) -> bool:
 
     if (subtitle1['name'] == subtitle2['name'] and
         subtitle1['language'] == subtitle2['language'] and
-        subtitle1['isforced'] == subtitle2['isforced'] and
-            subtitle1['isimpaired'] == subtitle2['isimpaired']):
+            subtitle1['index'] == subtitle2['index'] and
+                subtitle1['isforced'] == subtitle2['isforced'] and
+                    subtitle1['isimpaired'] == subtitle2['isimpaired']):
         return True
     return False
 
