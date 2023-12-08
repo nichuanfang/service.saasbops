@@ -164,7 +164,7 @@ class Tracker():
                         self.audio, current_audio), self.audio, current_audio)
                     logger.debug("same_subtitle: %s\n    %s\n    %s", same_subtitle(
                         self.subtitle, current_subtitle), self.subtitle, current_subtitle)
-                    self.preferences.set(show_id, season, episode, {
+                    self.preferences.set(show_id, season, 0, {
                         "audio": current_audio, "subtitle": current_subtitle})
 
                     self.audio = current_audio

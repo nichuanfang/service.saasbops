@@ -38,17 +38,13 @@ class Preferences():
         # Strings to allow for storing as JSON (easier debugging than binary formats)
         show_str = str(show)
         season_str = str(season)
+        episode_str = str(episode)
         
         if show not in self._storage.keys():
             self._storage[show_str] = {}
         if season not in self._storage[show_str].keys():
             self._storage[show_str][season_str] = {}
         
-        for e in reversed(range(0, episode+1)):
-            # 将当前季的所有集数都统一字幕和音轨
-            self._storage[show_str][season_str][str(e)] = info
-        # self._storage[show][season][episode] = info
-        logger.debug("Stored show: %s, season:%s, episode:%s, info:%s",
-                     show, season, episode, str(info))
+        self._storage[show_str][season_str][episode_str] = info
         if self._save:
             self._save(self._storage)
