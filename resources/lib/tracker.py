@@ -18,8 +18,8 @@ def same_audio(audio1, audio2) -> bool:
     if (audio1['name'] == audio2['name'] and
         audio1['language'] == audio2['language'] and
             audio1['index'] == audio2['index'] and
-                audio1['isdefault'] == audio2['isdefault'] and
-                    audio1['isimpaired'] == audio2['isimpaired']):
+                audio1['codec'] == audio2['codec'] and
+                        audio1['isimpaired'] == audio2['isimpaired']):
         return True
     return False
 
@@ -129,7 +129,11 @@ class Tracker():
                         logger.debug(stored_info["audio"])
                         logger.debug(item_props["audiostreams"])
                         #  日志item_props["audiostreams"] 详情
-                        logger.debug("item_props[audiostreams]: %s", item_props["audiostreams"])
+                        # item_props[audiostreams]: 
+                        # [{'bitrate': 192000, 'channels': 2, 'codec': 'ac3', 'index': 0, 'isdefault': True, 'isimpaired': False, 'isoriginal': False, 'language': '', 'name': 'AC3 stereo', 'samplerate': 0},
+                        # {'bitrate': 0, 'channels': 2, 'codec': 'aac', 'index': 1, 'isdefault': False, 'isimpaired': False, 'isoriginal': False, 'language': '', 'name': 'AAC stereo', 'samplerate': 0}]
+                        logger.debug("==================stored_info: %s", stored_info)
+                        logger.debug("==================item_props[audiostreams]: %s", item_props["audiostreams"])
                         stream = find_audio_stream(
                             stored_info["audio"], item_props["audiostreams"])
                         if stream is not None and self.set_audio_stream:
