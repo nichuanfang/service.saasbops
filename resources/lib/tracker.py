@@ -156,6 +156,8 @@ class Tracker():
 
                     self.audio = current_audio
                     self.subtitle = current_subtitle
+                else:
+                    logger.debug("No audio and subtitle changes")
 
             self.first_update = False
         except Exception as e:
