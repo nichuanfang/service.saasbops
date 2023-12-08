@@ -44,8 +44,14 @@ class Preferences():
             self._storage[show] = {}
         if season not in self._storage[show].keys():
             self._storage[show][season] = {}
-
-        self._storage[show][season][episode] = info
+        
+        for s in reversed(range(0, season+1)):
+            for e in reversed(range(0, episode+1)):
+                try:
+                    self._storage[show][str(s)][str(e)] = info
+                except KeyError:
+                    pass
+        # self._storage[show][season][episode] = info
         logger.debug("Stored show: %s, season:%s, episode:%s, info:%s",
                      show, season, episode, str(info))
         if self._save:
