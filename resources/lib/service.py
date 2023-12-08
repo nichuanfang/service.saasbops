@@ -29,7 +29,7 @@ def run():
 
     def load():
         try:
-            with open(data_filename,'r+',encoding='utf-8') as data_file:
+            with open(data_filename,'r') as data_file:
                 data = json.load(data_file)
                 logger.debug("Read data from: %s", data_filename)
                 return data
@@ -40,7 +40,7 @@ def run():
 
     def save(data):
         try:
-            with open(data_filename, 'w+',encoding='utf-8') as data_file:
+            with open(data_filename, 'w+') as data_file:
                 logger.debug(data)
                 json.dump(data, data_file, indent=2)
                 logger.debug("Written: %s", data_filename)

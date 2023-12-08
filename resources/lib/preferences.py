@@ -48,9 +48,11 @@ class Preferences():
         for s in reversed(range(0, season+1)):
             for e in reversed(range(0, episode+1)):
                 try:
+                    logger.debug("Storing show: %s, season:%s, episode:%s, info:%s",
+                                 show, s, e, str(info))
                     self._storage[show][str(s)][str(e)] = info
                 except KeyError:
-                    pass
+                    logger.debug("KeyError: %s, %s, %s", show, s, e)
         # self._storage[show][season][episode] = info
         logger.debug("Stored show: %s, season:%s, episode:%s, info:%s",
                      show, season, episode, str(info))
