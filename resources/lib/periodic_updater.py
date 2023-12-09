@@ -22,7 +22,6 @@ class PeriodicUpdater():
 
     def tick(self):
         if not self._running:
-            time.sleep(0.5)
             logger.debug("SAASBOPS is not running...")
         now = time.time()
         # 三分钟内完成切换
