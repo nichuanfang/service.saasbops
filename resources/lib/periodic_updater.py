@@ -1,4 +1,10 @@
+import logging
 import time
+
+import xbmcaddon
+
+ADDON = xbmcaddon.Addon()
+logger = logging.getLogger(ADDON.getAddonInfo('id'))
 
 
 class PeriodicUpdater():
@@ -16,6 +22,8 @@ class PeriodicUpdater():
 
     def tick(self):
         if not self._running:
+            time.sleep(self.period)
+            logger.debug("SAASBOPS is not running...")
             return
         now = time.time()
         # 三分钟内完成切换
