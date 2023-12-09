@@ -24,7 +24,6 @@ class PeriodicUpdater():
         if not self._running:
             time.sleep(0.5)
             logger.debug("SAASBOPS is not running...")
-            return False
         now = time.time()
         # 三分钟内完成切换
         if now > self._last_update + self.period :

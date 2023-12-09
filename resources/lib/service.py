@@ -77,10 +77,7 @@ def run():
         if monitor.waitForAbort(1):
             # Abort was requested while waiting. We should exit
             break
-        res = periodic_updater.tick()
-        if res == False:
-            # 说明已超过3分钟的轨道选择期
-            continue
+        periodic_updater.tick()
 
         # Bit if a hack to clear the prefences when the datafile
         # is deleted by the script command
