@@ -12,13 +12,18 @@ class PeriodicUpdater():
         self._callback = callback
         self._last_update = time.time()
         self._running = False
+        self.total_period = 0
 
     def tick(self):
         if not self._running:
             return
         now = time.time()
+        # 三分钟内完成切换
         if now > self._last_update + self.period:
+            if self.total_period > 180:
+                self._running = False
             self._last_update = now
+            self.total_period += self.period
             self._callback()
 
     def start(self):
@@ -26,6 +31,7 @@ class PeriodicUpdater():
         # Restart period when (re)starting
         self._last_update = time.time()
         self._running = True
+        self.total_period = 0
 
     def stop(self):
         self._running = False
