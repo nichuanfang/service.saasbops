@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import time
 from resources.lib.periodic_updater import PeriodicUpdater
 from typing import Any, Dict
 
@@ -76,7 +77,10 @@ def run():
         if monitor.waitForAbort(1):
             # Abort was requested while waiting. We should exit
             break
-        periodic_updater.tick()
+        res = periodic_updater.tick()
+        if res == False:
+            # 说明已超过3分钟的轨道选择期
+            continue
 
         # Bit if a hack to clear the prefences when the datafile
         # is deleted by the script command
