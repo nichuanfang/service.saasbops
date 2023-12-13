@@ -13,13 +13,9 @@ logger = logging.getLogger(ADDON.getAddonInfo('id'))
 
 def same_audio(audio1, audio2) -> bool:
     """Check if same audio, needed because other attributes can differ"""
-    # {'bitrate': 0, 'channels': 2, 'codec': 'aac', 'index': 1, 'isdefault': True, 'isimpaired': False, 'isoriginal': False, 'language': '', 'name': 'AAC stereo', 'samplerate': 0}, 
+    # {'bitrate': 0, 'channels': 2, 'codec': 'aac', 'index': 1, 'isdefault': True, 'isimpaired': False, 'isoriginal': False, 'language': '', 'name': 'AAC stereo', 'samplerate': 0},
     # {'bitrate': 0, 'channels': 2, 'codec': 'aac', 'index': 0, 'isdefault': False, 'isimpaired': False, 'isoriginal': False, 'language': '', 'name': 'AAC stereo', 'samplerate': 0}
-    if (audio1['name'] == audio2['name'] and
-        audio1['language'] == audio2['language'] and
-            audio1['index'] == audio2['index'] and
-                audio1['codec'] == audio2['codec'] and
-                        audio1['isimpaired'] == audio2['isimpaired']):
+    if (audio1['index'] == audio2['index']):
         return True
     return False
 
@@ -33,11 +29,7 @@ def same_subtitle(subtitle1, subtitle2) -> bool:
     if subtitle1 is None or subtitle2 is None:
         return False
 
-    if (subtitle1['name'] == subtitle2['name'] and
-        subtitle1['language'] == subtitle2['language'] and
-            subtitle1['index'] == subtitle2['index'] and
-                subtitle1['isforced'] == subtitle2['isforced'] and
-                    subtitle1['isimpaired'] == subtitle2['isimpaired']):
+    if (subtitle1['index'] == subtitle2['index']):
         return True
     return False
 
@@ -117,6 +109,7 @@ class Tracker():
                 if stored_info is not None:
                     # Will match the stored settings
                     self.audio = stored_info["audio"]
+
                     self.subtitle = stored_info["subtitle"]
 
                     if not same_audio(stored_info["audio"], current_audio):
@@ -125,11 +118,13 @@ class Tracker():
                         logger.debug(stored_info["audio"])
                         logger.debug(item_props["audiostreams"])
                         #  日志item_props["audiostreams"] 详情
-                        # item_props[audiostreams]: 
+                        # item_props[audiostreams]:
                         # [{'bitrate': 192000, 'channels': 2, 'codec': 'ac3', 'index': 0, 'isdefault': True, 'isimpaired': False, 'isoriginal': False, 'language': '', 'name': 'AC3 stereo', 'samplerate': 0},
                         # {'bitrate': 0, 'channels': 2, 'codec': 'aac', 'index': 1, 'isdefault': False, 'isimpaired': False, 'isoriginal': False, 'language': '', 'name': 'AAC stereo', 'samplerate': 0}]
-                        logger.debug("==================stored_info: %s", stored_info)
-                        logger.debug("==================item_props[audiostreams]: %s", item_props["audiostreams"])
+                        logger.debug(
+                            "==================stored_info: %s",  stored_info)
+                        logger.debug(
+                            "==================item_props[audiostreams]: %s", item_props["audiostreams"])
                         stream = find_audio_stream(
                             stored_info["audio"], item_props["audiostreams"])
                         if stream is not None and self.set_audio_stream:
@@ -152,8 +147,10 @@ class Tracker():
 
             if not self.first_update:
                 # Check for changes and store if different cause it is what the user specified
-                logger.debug("Checking audio changes:  last_audio:%s, current_audio:%s",self.audio, current_audio)
-                logger.debug("Checking subtitle changes:  last_subtitle:%s, current_subtitle:%s",self.subtitle, current_subtitle)
+                logger.debug(
+                    "Checking audio changes:  last_audio:%s, current_audio:%s", self.audio, current_audio)
+                logger.debug(
+                    "Checking subtitle changes:  last_subtitle:%s, current_subtitle:%s", self.subtitle, current_subtitle)
                 if not same_audio(self.audio, current_audio) or not same_subtitle(self.subtitle, current_subtitle):
                     logger.debug("same_audio: %s\n    %s\n    %s", same_audio(
                         self.audio, current_audio), self.audio, current_audio)
